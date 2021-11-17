@@ -67,4 +67,14 @@ class Hand
     end
   end
 
+
+  def ==(other)
+    is_equal = true
+
+    other.cards.each do |other_card|
+      is_equal &= @cards.include?(other_card)
+    end
+
+    is_equal
+  end
 end

@@ -28,4 +28,8 @@ class Card
     end
   end
 
+  def ==(other)
+    self.suit == other.suit && self.val == other.val
+  end
+
 end
