@@ -16,7 +16,7 @@ class Card
     if /^\d.$/ =~ str
       @val= str[0,1].to_i
     elsif /^A.$/i =~ str
-      @val= 1
+      @val= 14
     elsif /^T.$/i =~ str
       @val= 10
     elsif /^J.$/i =~ str

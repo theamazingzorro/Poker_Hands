@@ -67,7 +67,7 @@ describe 'Hand' do
       hand = Hand.new %w[aH jD tS qC KD]
       val_counts = hand.valueCounts
 
-      expect(val_counts[1]).to eq 1
+      expect(val_counts[14]).to eq 1
       expect(val_counts[10]).to eq 1
       expect(val_counts[11]).to eq 1
       expect(val_counts[12]).to eq 1

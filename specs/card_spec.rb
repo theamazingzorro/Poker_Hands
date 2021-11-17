@@ -27,9 +27,9 @@ describe 'Card' do
         expect(card.val).to eq i
         end
     end
-    it 'has the value of A = 1' do
+    it 'has the value of A = 14' do
       card = Card.new "AS"
-      expect(card.val).to eq 1
+      expect(card.val).to eq 14
     end
     it 'has the value of T = 10' do
       card = Card.new "TS"
