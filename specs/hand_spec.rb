@@ -23,6 +23,7 @@ describe 'Hand' do
 
       expect(val_counts.size).to eq 2
     end
+
     it 'counts 3 - 2 split' do
       hand = Hand.new %w[2H 2D 2S 9C 9D]
       val_counts = hand.valueCounts
@@ -32,6 +33,7 @@ describe 'Hand' do
 
       expect(val_counts.size).to eq 2
     end
+
     it 'counts 3 - 1 - 1 split' do
       hand = Hand.new %w[2H 2D 2S 6C 8D]
       val_counts = hand.valueCounts
@@ -42,6 +44,7 @@ describe 'Hand' do
 
       expect(val_counts.size).to eq 3
     end
+
     it 'counts 2 - 2 - 1 split' do
       hand = Hand.new %w[2H 2D 6S 6C 8D]
       val_counts = hand.valueCounts
@@ -52,6 +55,7 @@ describe 'Hand' do
 
       expect(val_counts.size).to eq 3
     end
+
     it 'counts 2 - 1 - 1 - 1 split' do
       hand = Hand.new %w[2H TD 6S 6C 8D]
       val_counts = hand.valueCounts
@@ -63,6 +67,7 @@ describe 'Hand' do
 
       expect(val_counts.size).to eq 4
     end
+
     it 'counts 5 unique' do
       hand = Hand.new %w[aH jD tS qC KD]
       val_counts = hand.valueCounts
