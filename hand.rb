@@ -3,8 +3,8 @@ class Hand
 
   def initialize(card_str)
     @cards = []
-    (0..4).each do |i|
-      @cards << Card.new(card_str[i])
+    card_str.each do |card|
+      @cards << Card.new(card)
     end
   end
 
