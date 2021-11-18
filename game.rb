@@ -1,4 +1,4 @@
-require './hand'
+require_relative './hand'
 
 class Game
   attr_accessor :black_name
