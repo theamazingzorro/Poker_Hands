@@ -177,4 +177,20 @@ describe 'Game' do
     end
   end
 
+  describe 'to_str' do
+    it 'return the winner with their rank and highest card if they won with a high card' do
+      game = Game.new %w[Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH]
+      expect(game.to_str).to eq "White wins. - with high card: Ace"
+    end
+
+    it 'return the winner with their rank and highest card if they won with a full house' do
+      game = Game.new %w[Black: 2H 4S 4C 2D 4H  White: 2S 8S AS QS 3S]
+      expect(game.to_str).to eq "Black wins. - with full house: 4 over 2"
+    end
+
+    it 'return Tie. if the game tied' do
+      game = Game.new %w[Black: 2H 3D 5S 9C KD  White: 2D 3H 5C 9S KH]
+      expect(game.to_str).to eq "Tie."
+    end
+  end
 end

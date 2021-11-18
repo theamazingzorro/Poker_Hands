@@ -1,3 +1,5 @@
+require './card'
+
 class Hand
   attr_accessor :cards
 
@@ -67,7 +69,6 @@ class Hand
     end
   end
 
-
   def ==(other)
     is_equal = true
 
@@ -76,5 +77,45 @@ class Hand
     end
 
     is_equal
+  end
+
+  def to_str
+    high_card = @cards.sort_by { |card| card.val }.reverse[0]
+    value_counts = valueCounts
+
+    case rank
+    when :straight_flush
+      "straight flush: " + high_card
+    when :four_kind
+      quad_val = value_counts.key(4)
+      card = @cards.find { |card| card.val == quad_val }
+      "four of a kind: " + card
+    when :full_house
+      trio_val = value_counts.key(3)
+      trio_card = @cards.find { |card| card.val == trio_val }
+      pair_val = value_counts.key(2)
+      pair_card = @cards.find { |card| card.val == pair_val }
+
+      "full house: #{trio_card.to_str} over #{pair_card.to_str}"
+    when :flush
+      "flush: " + high_card
+    when :straight
+      "straight: " +high_card
+    when :three_kind
+      trio_val = value_counts.key(3)
+      card = @cards.find { |card| card.val == trio_val }
+      "three of a kind: " + card
+    when :two_pair
+      pair_vals = value_counts.select { |_, count| count == 2 } .keys.sort.reverse
+      cards[0] = @cards.find { |card| card.val == pair_vals[0] }
+      cards[1] = @cards.find { |card| card.val == pair_vals[1] }
+      "two pair: #{cards[0].to_str} over #{cards[1].to_str}"
+    when :pair
+      pair_val = value_counts.key(2)
+      card = @cards.select { |card| card.val == pair_val }
+      "pair: " + card
+    when :high
+      "high card: " + high_card
+    end
   end
 end

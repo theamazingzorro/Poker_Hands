@@ -1,3 +1,5 @@
+require './hand'
+
 class Game
   attr_accessor :black_name
   attr_accessor :black
@@ -19,11 +21,11 @@ class Game
   }
 
   def initialize(game_arr)
-    @black_name = game_arr[0]
+    @black_name = game_arr[0].dup
     @black_name[':'] = ''
     @black = Hand.new game_arr[1, 5]
 
-    @white_name = game_arr[6]
+    @white_name = game_arr[6].dup
     @white_name[':'] = ''
     @white = Hand.new game_arr[7, 12]
 
@@ -56,9 +58,10 @@ class Game
   end
 
   private def best_set_of(i, black_val_counts, white_val_counts)
-    black_pairs = black_val_counts.select { |_, count|  count == i} .keys.sort.reverse
-    white_pairs = white_val_counts.select { |_, count|  count == i} .keys.sort.reverse
-    black_pairs.zip(white_pairs).each do |black_card, white_card|
+    black_sets = black_val_counts.select { |_, count|  count == i} .keys.sort.reverse
+    white_sets = white_val_counts.select { |_, count|  count == i} .keys.sort.reverse
+
+    black_sets.zip(white_sets).each do |black_card, white_card|
       if black_card > white_card
         return :black
       elsif black_card < white_card
@@ -67,5 +70,15 @@ class Game
     end
 
     :tie
+  end
+
+  def to_str
+    if @winner == :black
+      "Black wins. - with " + @black
+    elsif @winner == :white
+      "White wins. - with " + @white
+    else
+      "Tie."
+    end
   end
 end
