@@ -27,23 +27,45 @@ class Game
     @white_name[':'] = ''
     @white = Hand.new game_arr[7, 12]
 
-    find_winner
+    @winner = find_winner
   end
 
-  private def find_winner
+  def find_winner
     black_score = SCORES[@black.rank]
     white_score = SCORES[@white.rank]
 
     if black_score > white_score
-      @winner = :black
+      :black
     elsif black_score < white_score
-      @winner = :white
+      :white
     else
-      @winner = tiebreaker_winner
+      tiebreaker_winner
     end
   end
 
-  private def tiebreaker_winner
-    :white
+  def tiebreaker_winner
+    black_val_counts = @black.valueCounts
+    white_val_counts = @white.valueCounts
+
+    result = :tie
+    (1..4).reverse_each do |i|
+      result = result == :tie ? best_set_of(i, black_val_counts, white_val_counts) : result
+    end
+
+    result
+  end
+
+  private def best_set_of(i, black_val_counts, white_val_counts)
+    black_pairs = black_val_counts.select { |_, count|  count == i} .keys.sort.reverse
+    white_pairs = white_val_counts.select { |_, count|  count == i} .keys.sort.reverse
+    black_pairs.zip(white_pairs).each do |black_card, white_card|
+      if black_card > white_card
+        return :black
+      elsif black_card < white_card
+        return :white
+      end
+    end
+
+    :tie
   end
 end
